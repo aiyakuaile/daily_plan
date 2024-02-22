@@ -1,16 +1,30 @@
 # daily_plan
 
-A new Flutter project.
+通过拖拽的方式对添加的任务进行分类
 
-## Getting Started
+可以通过键盘的上下键或者WS键进行项目、计划、设置页面上下切换，
+在计划页面，可以通过键盘的左右键或者AD键在不同的项目之间进行切换。
 
-This project is a starting point for a Flutter application.
+在项目页面可以直接鼠标点击想要打开的项目，快速跳转到对应的计划页面。
 
-A few resources to get you started if this is your first Flutter project:
+### 待增加的特性
+- [ ] 批量添加待办计划
+- [ ] 批量删除待办计划
+- [ ] 任务导出
+- [ ] 筛选
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### v1.0
+
+完成TODOList的基本功能
+- 添加计划
+- 删除计划
+- 拖拽的方式更改计划流程
+- 修改主背景图
+- 修改遮罩透明度
+- 增加版本更新检测
+
+### 视频演示
+
+
+

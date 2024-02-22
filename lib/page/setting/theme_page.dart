@@ -78,7 +78,7 @@ class _ThemePageState extends State<ThemePage> with AutomaticKeepAliveClientMixi
                     const SizedBox(width: 100),
                     Expanded(child: Slider(value: context.watch<ThemeProvider>().backgroundOpacity, onChanged: (value){
                       context.read<ThemeProvider>().backgroundOpacity = value;
-                    },focusNode: FocusNode(),))
+                    },focusNode: FocusNode(canRequestFocus: false),))
                   ],
                 ),
               ),

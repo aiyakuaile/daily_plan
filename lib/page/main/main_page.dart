@@ -29,7 +29,7 @@ class _MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin 
   @override
   void initState() {
     _checkUpdate();
-    context.read<ThemeProvider>().loadBgImg();
+    context.read<ThemeProvider>().loadTheme();
     super.initState();
   }
 

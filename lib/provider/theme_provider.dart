@@ -43,14 +43,19 @@ class ThemeProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  loadBackgroundOpacity() async {
+  loadTheme(){
+    _loadBgImg();
+    _loadBackgroundOpacity();
+  }
+
+  _loadBackgroundOpacity() async {
     final res = await PrefsUtil.getDouble(backgroundOpacityKey);
     if(res != null){
       backgroundOpacity = res;
     }
   }
 
-  loadBgImg() async {
+  _loadBgImg() async {
     final res = await PrefsUtil.getString(backgroundPathKey);
     if(res == null){
       await _loadBgFromNet();
