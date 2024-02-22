@@ -1,4 +1,6 @@
+import 'package:daily_plan/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class NavigatorWidget extends StatelessWidget {
   final GestureTapCallback? onLeft;
@@ -12,7 +14,7 @@ class NavigatorWidget extends StatelessWidget {
       height: 44,
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      decoration: BoxDecoration(color: Colors.black.withOpacity(0.3), borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(color: Colors.black.withOpacity(context.watch<ThemeProvider>().backgroundOpacity), borderRadius: BorderRadius.circular(10)),
       child: Row(
         children: [
           Expanded(

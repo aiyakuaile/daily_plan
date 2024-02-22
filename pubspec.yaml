@@ -46,6 +46,8 @@ dependencies:
   package_info_plus: ^4.2.0
   flutter_svg: ^2.0.9
   file_picker: ^6.1.1
+  provider: ^6.1.1
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:
@@ -91,7 +93,7 @@ flutter:
     - family: MiSans
       fonts:
         - asset: fonts/MiSans-Regular.ttf
-          weight: 400
+          weight: 300
         - asset: fonts/MiSans-Medium.ttf
           weight: 500
         - asset: fonts/MiSans-Bold.ttf

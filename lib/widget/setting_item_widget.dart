@@ -1,4 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/theme_provider.dart';
 
 class SettingItemWidget extends StatelessWidget {
   final String title;
@@ -16,7 +21,7 @@ class SettingItemWidget extends StatelessWidget {
         height: 44,
         margin: const EdgeInsets.only(bottom: 15),
         decoration: BoxDecoration(
-            gradient: const LinearGradient(colors: [Colors.black38,Colors.black87]),
+            gradient: LinearGradient(colors: [Colors.black38,Colors.black.withOpacity(min(0.2 + context.watch<ThemeProvider>().backgroundOpacity, 1.0))]),
             borderRadius: BorderRadius.circular(10)
         ),
         padding: const EdgeInsets.symmetric(horizontal: 15),

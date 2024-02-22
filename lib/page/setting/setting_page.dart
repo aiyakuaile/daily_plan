@@ -1,9 +1,11 @@
-import 'package:daily_plan/page/setting/reward_page.dart';
+import 'dart:math';
+
 import 'package:daily_plan/page/setting/suggest_page.dart';
 import 'package:daily_plan/page/setting/theme_page.dart';
 import 'package:daily_plan/page/setting/update_page.dart';
-import 'package:daily_plan/utils/toast_util.dart';
+import 'package:daily_plan/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 class SettingPage extends StatefulWidget {
@@ -40,7 +42,7 @@ class _SettingPageState extends State<SettingPage> with AutomaticKeepAliveClient
               child: Container(
               height: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.3),
+                color: Colors.black.withOpacity(context.watch<ThemeProvider>().backgroundOpacity),
                 borderRadius: BorderRadius.circular(10)
               ),
               child: Column(
@@ -67,7 +69,7 @@ class _SettingPageState extends State<SettingPage> with AutomaticKeepAliveClient
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: index == selectedIndex?Colors.black.withOpacity(0.5):null
+                            color: index == selectedIndex?Colors.black.withOpacity(min(0.2+context.watch<ThemeProvider>().backgroundOpacity, 1.0)):null
                           ),
                           child: Row(
                             children: [
@@ -100,7 +102,7 @@ class _SettingPageState extends State<SettingPage> with AutomaticKeepAliveClient
             const SizedBox(width: 10),
             Expanded(flex: 3,child: Container(
               decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.3),
+                  color: Colors.black.withOpacity(context.watch<ThemeProvider>().backgroundOpacity),
                   borderRadius: BorderRadius.circular(10)
               ),
               child: PageView(

@@ -1,12 +1,16 @@
+import 'dart:io';
+
 import 'package:common_utils/common_utils.dart';
 import 'package:daily_plan/common/app_version.dart';
 import 'package:daily_plan/common/http_net.dart';
 import 'package:daily_plan/page/home/tab_home_page.dart';
 import 'package:daily_plan/page/project/project_page.dart';
+import 'package:daily_plan/provider/theme_provider.dart';
 import 'package:daily_plan/utils/isar_util.dart';
 import 'package:daily_plan/utils/toast_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 import '../setting/setting_page.dart';
 
@@ -21,31 +25,18 @@ class _MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin 
   final _pageVController = PageController(initialPage: 0);
   final PageController _pageHController = PageController(initialPage: 0);
   final _focusNode = FocusNode();
-  String? _bingImgUrl;
 
   @override
   void initState() {
-    _loadBgImg();
     _checkUpdate();
+    context.read<ThemeProvider>().loadBgImg();
     super.initState();
   }
 
-  _loadBgImg() async {
-    final url = await HttpNet.getBingWallPaper();
-    if (!mounted) return;
-    if (ObjectUtil.isNotEmpty(url)) {
-        setState(() {
-          _bingImgUrl = url;
-        });
-    }else{
-      ToastUtil.showError(context,msg: '获取壁纸出错啦！');
-    }
-  }
-
-  _checkUpdate()async{
+  _checkUpdate() async {
     final isUpdate = await AppVersion.checkUpdate();
-    if(!mounted) return;
-    if(isUpdate){
+    if (!mounted) return;
+    if (isUpdate) {
       ToastUtil.showUpdateInfo(context);
     }
   }
@@ -61,6 +52,9 @@ class _MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin 
   @override
   Widget build(BuildContext context) {
     super.build(context);
+
+    final bgImgUrl = context.watch<ThemeProvider>().customBackgroundImagePath;
+
     return Scaffold(
       body: RawKeyboardListener(
         focusNode: _focusNode,
@@ -98,9 +92,20 @@ class _MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin 
             }
           }
         },
-        child: Container(
-          decoration: BoxDecoration(
-              color: Colors.white, image: _bingImgUrl == null ? null : DecorationImage(image: NetworkImage(_bingImgUrl!), fit: BoxFit.cover)),
+        child: Consumer<ThemeProvider>(
+          builder: (BuildContext context,value,Widget? child) {
+            return Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                image: value.customBackgroundImagePath == ''
+                    ? null
+                    : value.customBackgroundImagePath.startsWith('http')
+                        ? DecorationImage(image: NetworkImage(value.customBackgroundImagePath), fit: BoxFit.cover)
+                        : DecorationImage(image: FileImage(File(value.customBackgroundImagePath)), fit: BoxFit.cover),
+              ),
+              child: child,
+            );
+          },
           child: PageView(
             controller: _pageVController,
             physics: const NeverScrollableScrollPhysics(),
@@ -111,19 +116,19 @@ class _MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin 
                   await _pageVController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                   _pageHController.jumpToPage(index);
                 },
-                onSetting: (){
-                  _pageVController.animateToPage(2,duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                onSetting: () {
+                  _pageVController.animateToPage(2, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                 },
               ),
               TabHomePage(
                 _pageHController,
               ),
               SettingPage(
-                onHome: (){
-                  _pageVController.animateToPage(0,duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                onHome: () {
+                  _pageVController.animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                 },
-                onProject: (){
-                  _pageVController.animateToPage(1,duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                onProject: () {
+                  _pageVController.animateToPage(1, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                 },
               )
             ],

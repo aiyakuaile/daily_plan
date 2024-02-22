@@ -15,7 +15,7 @@ class IsarUtil {
 
   Future<bool> initIsarData()async{
     if(isar == null){
-      final dir = await getApplicationCacheDirectory();
+      final dir = await getLibraryDirectory();
       isar = await Isar.open(
         [ProjectEntitySchema,PlanEntitySchema],
         directory: dir.path,

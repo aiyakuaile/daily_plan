@@ -1,10 +1,12 @@
 import 'package:daily_plan/entity/plan_entity.dart';
 import 'package:daily_plan/entity/project_entity.dart';
 import 'package:daily_plan/page/home/plan_input_page.dart';
+import 'package:daily_plan/provider/theme_provider.dart';
 import 'package:daily_plan/utils/extension.dart';
 import 'package:daily_plan/utils/isar_util.dart';
 import 'package:daily_plan/widget/plan_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   final ProjectEntity projectEntity;
@@ -64,7 +66,7 @@ class _HomePageState extends State<HomePage> {
       child: Container(
         height: double.infinity,
         margin: const EdgeInsets.only(left: 5, right: 5, bottom: 10),
-        decoration: BoxDecoration(color: Colors.black.withOpacity(0.3), borderRadius: BorderRadius.circular(10)),
+        decoration: BoxDecoration(color: Colors.black.withOpacity(context.watch<ThemeProvider>().backgroundOpacity), borderRadius: BorderRadius.circular(10)),
         child: Column(
           children: [
             Container(

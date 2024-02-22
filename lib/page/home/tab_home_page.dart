@@ -1,8 +1,10 @@
 import 'package:daily_plan/entity/project_entity.dart';
 import 'package:daily_plan/page/home/home_page.dart';
+import 'package:daily_plan/provider/theme_provider.dart';
 import 'package:daily_plan/utils/isar_util.dart';
 import 'package:daily_plan/widget/navigator_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TabHomePage extends StatefulWidget {
   final PageController controller;
@@ -76,7 +78,7 @@ class _TabHomePageState extends State<TabHomePage> {
                       height: double.infinity,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: Colors.black26,
+                        color: Colors.black.withOpacity(context.watch<ThemeProvider>().backgroundOpacity),
                         borderRadius: BorderRadius.circular(10)
                       ),
                       child: const Text('请先添加计划',style: TextStyle(color: Colors.white,fontSize: 30),),
