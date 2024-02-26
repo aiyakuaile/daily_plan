@@ -1,11 +1,14 @@
 import 'dart:math';
 
+import 'package:daily_plan/page/setting/lang_page.dart';
 import 'package:daily_plan/page/setting/suggest_page.dart';
 import 'package:daily_plan/page/setting/theme_page.dart';
 import 'package:daily_plan/page/setting/update_page.dart';
 import 'package:daily_plan/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../generated/l10n.dart';
 
 
 class SettingPage extends StatefulWidget {
@@ -19,7 +22,6 @@ class SettingPage extends StatefulWidget {
 
 class _SettingPageState extends State<SettingPage> with AutomaticKeepAliveClientMixin{
   final _settingPageController = PageController();
-  final List<String> options = ['主题设置','检查更新','用户反馈'];
   int selectedIndex = 0;
 
   @override
@@ -31,6 +33,7 @@ class _SettingPageState extends State<SettingPage> with AutomaticKeepAliveClient
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final List<String> options = [S.current.theme_settings,S.current.check_update,S.current.feedback,S.current.language];
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Padding(
@@ -50,12 +53,12 @@ class _SettingPageState extends State<SettingPage> with AutomaticKeepAliveClient
                   Container(
                     alignment: Alignment.center,
                     height: 44,
-                    child: const Text('设置',style: TextStyle(fontWeight: FontWeight.w500,color: Colors.white),),
+                    child:  Text(S.of(context).setting,style: const TextStyle(fontWeight: FontWeight.w500,color: Colors.white),),
                   ),
                   const Divider(height: 0.5),
                   Expanded(
                     child: ListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
                         itemBuilder: (context,index){
                       return GestureDetector(
                         onTap: (){
@@ -112,6 +115,7 @@ class _SettingPageState extends State<SettingPage> with AutomaticKeepAliveClient
                   ThemePage(),
                   UpdatePage(),
                   SuggestPage(),
+                  LangPage()
                   // RewardPage()
                 ],
               ),

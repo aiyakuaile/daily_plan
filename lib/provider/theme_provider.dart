@@ -21,24 +21,28 @@ class ThemeProvider with ChangeNotifier {
 
   String? _customBackgroundImagePath;
 
-  String get customBackgroundImagePath => _customBackgroundImagePath ?? '';
+  String? get customBackgroundImagePath => _customBackgroundImagePath;
 
   String? _bingNetImageUrl;
 
   set customBackgroundImagePath(String? value) {
-    if(ObjectUtil.isEmpty(value)){
+
+    // null,default
+    // '',bing
+    // 'xxxx',custom
+    if(value == null){
+      PrefsUtil.remove(backgroundPathKey);
+      _customBackgroundImagePath = null;
+    }else if(value == '' || value.startsWith('http')){
+      PrefsUtil.setString(backgroundPathKey, '');
       if(ObjectUtil.isEmpty(_bingNetImageUrl)){
         _loadBgFromNet();
       }else{
-        customBackgroundImagePath = _bingNetImageUrl!;
+        _customBackgroundImagePath = _bingNetImageUrl!;
       }
-      return;
-    }
-    _customBackgroundImagePath = value!;
-    if(value.startsWith('http')){
-      PrefsUtil.remove(backgroundPathKey);
     }else{
       PrefsUtil.setString(backgroundPathKey, value);
+      _customBackgroundImagePath = value;
     }
     notifyListeners();
   }
@@ -58,6 +62,8 @@ class ThemeProvider with ChangeNotifier {
   _loadBgImg() async {
     final res = await PrefsUtil.getString(backgroundPathKey);
     if(res == null){
+      customBackgroundImagePath = null;
+    }else if(res == ''){
       await _loadBgFromNet();
     }else{
       customBackgroundImagePath = res;

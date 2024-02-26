@@ -1,4 +1,5 @@
 import 'package:daily_plan/common/constant.dart';
+import 'package:daily_plan/generated/l10n.dart';
 import 'package:daily_plan/widget/setting_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -23,7 +24,7 @@ class _SuggestPageState extends State<SuggestPage> {
           alignment: Alignment.centerLeft,
           child: Row(
             children: [
-              const Text('用户反馈',style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.w500),),
+               Text(S.of(context).feedback,style: const TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.w500),),
               const Spacer(),
                GestureDetector(
                  onTap: (){
@@ -41,18 +42,24 @@ class _SuggestPageState extends State<SuggestPage> {
             ],
           )
         ),
-        SingleChildScrollView(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SettingItemWidget(title: '赏个⭐️',showArrow: true,onTap: (){
-                launchUrlString(Constant.githubHomeUrl);
-              },),
-              SettingItemWidget(title: '提个issue',showArrow: true,onTap: (){
-                launchUrlString(Constant.githubIssuesUrl);
-              },),
-            ],
+        Container(
+          constraints: const BoxConstraints(
+              minWidth: 600,
+              maxWidth: 600
+          ),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SettingItemWidget(title: S.of(context).star,showArrow: true,onTap: (){
+                  launchUrlString(Constant.githubHomeUrl);
+                },),
+                SettingItemWidget(title: S.of(context).issue,showArrow: true,onTap: (){
+                  launchUrlString(Constant.githubIssuesUrl);
+                },),
+              ],
+            ),
           ),
         )
       ],

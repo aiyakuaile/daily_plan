@@ -30,8 +30,8 @@ class SettingItemWidget extends StatelessWidget {
             Text(title,style: const TextStyle(color: Colors.white),),
             const Spacer(),
             if(subTitle != null)Text(subTitle!,style: const TextStyle(color: Colors.white),),
-            if(showArrow) const Icon(Icons.arrow_forward_ios_outlined,size: 15,color: Colors.white,),
-            if(rightWidget != null) rightWidget!
+            if(rightWidget != null) rightWidget!,
+            if(showArrow) const Icon(Icons.arrow_forward_ios_outlined,size: 15,color: Colors.white,)
           ],
         ),
       ),

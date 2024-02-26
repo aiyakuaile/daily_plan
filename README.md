@@ -1,30 +1,31 @@
-# daily_plan
+# Daily Plan
+### Introduction
 
-通过拖拽的方式对添加的任务进行分类
+Organize tasks by dragging and dropping to define their status.
 
-可以通过键盘的上下键或者WS键进行项目、计划、设置页面上下切换，
-在计划页面，可以通过键盘的左右键或者AD键在不同的项目之间进行切换。
+Navigate through project, plan, and settings pages using the arrow keys or WS keys.
 
-在项目页面可以直接鼠标点击想要打开的项目，快速跳转到对应的计划页面。
+On the plan page, use the left and right arrow keys or AD keys to switch between different projects.
 
-### 待增加的特性
-- [ ] 批量添加待办计划
-- [ ] 批量删除待办计划
-- [ ] 任务导出
-- [ ] 筛选
+Click on a project in the project page to quickly jump to its corresponding plan page.
 
+### Preview
 
-### v1.0
+![](https://raw.githubusercontent.com/aiyakuaile/daily_plan/main/video.gif)
 
-完成TODOList的基本功能
-- 添加计划
-- 删除计划
-- 拖拽的方式更改计划流程
-- 修改主背景图
-- 修改遮罩透明度
-- 增加版本更新检测
+### Planned Features
+- [ ] Batch add to-do plans
+- [ ] Batch delete to-do plans
+- [ ] Task export
+- [ ] Filtering
 
-### 视频演示
+### Version 1.0
+Complete the basic functionality of the TODOList:
 
-
-
+- Add plans
+- Delete plans
+- Change plan flow through drag and drop
+- Modify main background image
+- Adjust mask transparency
+- Add version update detection
+- Support both Chinese and English

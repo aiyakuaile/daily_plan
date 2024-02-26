@@ -19,6 +19,7 @@ class IsarUtil {
       isar = await Isar.open(
         [ProjectEntitySchema,PlanEntitySchema],
         directory: dir.path,
+        inspector:false
       );
     }
     return true;

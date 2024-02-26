@@ -1,5 +1,6 @@
 import 'package:common_utils/common_utils.dart';
 import 'package:daily_plan/entity/project_entity.dart';
+import 'package:daily_plan/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class ProjectWidget extends StatelessWidget {
@@ -44,11 +45,11 @@ class ProjectWidget extends StatelessWidget {
                         style: const TextStyle(fontSize: 15),
                       ),
                       Text(
-                        '流程：${ObjectUtil.isEmpty(entity.flow) ? '':entity.flow!.join(',')}',
+                        '${S.of(context).task_process}：${ObjectUtil.isEmpty(entity.flow) ? '':entity.flow!.join(',')}',
                         style: const TextStyle(fontSize: 12, color: Colors.black54),
                       ),
                       Text(
-                        '创建日期：${DateUtil.formatDate(entity.createTime!,format: 'yyyy-MM-dd HH:mm')}',
+                        '${S.of(context).project_create_time}：${DateUtil.formatDate(entity.createTime!,format: 'yyyy-MM-dd HH:mm')}',
                         style: const TextStyle(fontSize: 10, color: Colors.black54),
                       ),
                     ],

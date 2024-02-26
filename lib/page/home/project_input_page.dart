@@ -1,6 +1,8 @@
 import 'package:daily_plan/entity/project_entity.dart';
 import 'package:flutter/material.dart';
 
+import '../../generated/l10n.dart';
+
 class ProjectInputPage extends StatefulWidget {
   const ProjectInputPage({super.key});
 
@@ -52,15 +54,15 @@ class _ProjectInputPageState extends State<ProjectInputPage> {
                       TextField(
                         controller: _nameController,
                         maxLength: 20,
-                        decoration: const InputDecoration(
-                          labelText: '名称',
+                        decoration: InputDecoration(
+                          labelText: S.of(context).project_name,
                         ),
                       ),
                       TextField(
                         controller: _flowController,
                         maxLength: 100,
-                        decoration: const InputDecoration(
-                          labelText: '流程(例如：待办、进行中、已完成)',
+                        decoration:  InputDecoration(
+                          labelText: '${S.of(context).task_process}${S.of(context).process_example}',
                         ),
                       ),
                     ],
@@ -73,9 +75,9 @@ class _ProjectInputPageState extends State<ProjectInputPage> {
                 child: Row(
                   children: [
                     const Spacer(),
-                    OutlinedButton(onPressed: Navigator.of(context).pop, child: const Text('取消')),
+                    OutlinedButton(onPressed: Navigator.of(context).pop, child: Text(S.of(context).cancel)),
                     const SizedBox(width: 20),
-                    ElevatedButton(onPressed: _onSubmit, child: const Text('确定')),
+                    ElevatedButton(onPressed: _onSubmit, child: Text(S.of(context).confirm)),
                   ],
                 ),
               )

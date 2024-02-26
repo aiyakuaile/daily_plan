@@ -4,6 +4,7 @@ import 'package:daily_plan/common/app_version.dart';
 import 'package:daily_plan/common/constant.dart';
 import 'package:daily_plan/common/http_net.dart';
 import 'package:daily_plan/entity/app_entity.dart';
+import 'package:daily_plan/generated/l10n.dart';
 import 'package:daily_plan/provider/theme_provider.dart';
 import 'package:daily_plan/widget/rotation_widget.dart';
 import 'package:flutter/material.dart';
@@ -46,9 +47,9 @@ class _UpdatePageState extends State<UpdatePage> {
           height: 80,
           padding: const EdgeInsets.only(left: 15),
           alignment: Alignment.centerLeft,
-          child: const Text(
-            '检查更新',
-            style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500),
+          child: Text(
+            S.of(context).check_update,
+            style: const TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500),
           ),
         ),
         Expanded(
@@ -84,7 +85,7 @@ class _UpdatePageState extends State<UpdatePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        isUpdateRequired ? '新版本更新内容：v$latestVersion' : '版本内容：',
+                        isUpdateRequired ? '${S.of(context).new_version_note}：v$latestVersion' : S.of(context).version_note,
                         style: const TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(height: 20),
@@ -99,7 +100,7 @@ class _UpdatePageState extends State<UpdatePage> {
                                   launchUrlString(Constant.githubUpdateUrl);
                                 }
                               : () {},
-                          child: Text(isUpdateRequired ? '立即更新' : '已经是最新版本了！'))
+                          child: Text(isUpdateRequired ? S.of(context).update_version : S.of(context).latest_version))
                     ],
                   ),
                 )

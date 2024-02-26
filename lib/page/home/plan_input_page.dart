@@ -1,6 +1,7 @@
 import 'package:common_utils/common_utils.dart';
 import 'package:daily_plan/entity/plan_entity.dart';
 import 'package:daily_plan/entity/project_entity.dart';
+import 'package:daily_plan/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class PlanInputPage extends StatefulWidget {
@@ -67,23 +68,23 @@ class _PlanInputPageState extends State<PlanInputPage> {
                         controller: _contentController,
                         maxLength: 200,
                         maxLines: null,
-                        decoration: const InputDecoration(
-                          labelText: '* 内容',
+                        decoration: InputDecoration(
+                          labelText: '* ${S.of(context).content}',
                         ),
                       ),
                       TextField(
                         controller: _labelController,
                         maxLength: 100,
-                        decoration: const InputDecoration(
-                          labelText: '标签(使用"、，,."分割)',
+                        decoration:  InputDecoration(
+                          labelText: S.of(context).tags,
                         ),
                       ),
                       TextField(
                         controller: _remarkController,
                         maxLength: 300,
                         maxLines: null,
-                        decoration: const InputDecoration(
-                          labelText: '备注',
+                        decoration: InputDecoration(
+                          labelText: S.of(context).remark,
                         ),
                       )
                     ],
@@ -102,11 +103,11 @@ class _PlanInputPageState extends State<PlanInputPage> {
                             widget.onDelete?.call();
                             Navigator.of(context).pop();
                           },
-                          child: const Text('删除')),
+                          child: Text(S.of(context).delete,style: const TextStyle(color: Colors.white),)),
                     const Spacer(),
-                    OutlinedButton(onPressed: Navigator.of(context).pop, child: const Text('取消')),
+                    OutlinedButton(onPressed: Navigator.of(context).pop, child:  Text(S.of(context).cancel)),
                     const SizedBox(width: 20),
-                    ElevatedButton(onPressed: _onSubmit, child: const Text('确定')),
+                    ElevatedButton(onPressed: _onSubmit, child: Text(S.of(context).confirm)),
                   ],
                 ),
               )

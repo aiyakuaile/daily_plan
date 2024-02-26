@@ -69,37 +69,26 @@ class _HomePageState extends State<HomePage> {
         decoration: BoxDecoration(color: Colors.black.withOpacity(context.watch<ThemeProvider>().backgroundOpacity), borderRadius: BorderRadius.circular(10)),
         child: Column(
           children: [
-            Container(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.white.withOpacity(0.2)))),
-                child: Row(
-                  children: [
-                    const Spacer(),
-                    Text(
-                      items.isEmpty ? title:'$title(${items.length})',
-                      style: const TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
-                    ),
-                    index == 0
-                        ? Expanded(
-                            child: Align(
-                            alignment: Alignment.centerRight,
-                            child: GestureDetector(
-                              onTap: _showCreateDialog,
-                              child:Container(
-                                margin: const EdgeInsets.only(right: 10),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(40),
-                                  color: Colors.blueAccent
-                                ),
-                                padding: const EdgeInsets.all(3),
-                                child: const Icon(Icons.add,color:Colors.white,size: 12,),
-                              ),
-                            ),
-                          ))
-                        : const Spacer()
-                  ],
-                )),
+              Stack(
+                alignment: Alignment.centerRight,
+              children: [
+                Container(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.white.withOpacity(0.2)))),
+                    child: Row(
+                      children: [
+                        const Spacer(),
+                        Text(
+                          items.isEmpty ? title:'$title(${items.length})',
+                          style: const TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
+                        ),
+                        const Spacer()
+                      ],
+                    )),
+                if(index == 0)IconButton(color: Colors.white,onPressed: _showCreateDialog, icon: const Icon(Icons.add))
+              ],
+            ),
             Expanded(
               child: DragTarget<PlanEntity>(
                 builder: (

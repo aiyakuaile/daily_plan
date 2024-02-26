@@ -7,6 +7,8 @@ import 'package:daily_plan/widget/project_widget.dart';
 import 'package:daily_plan/widget/rotation_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../../generated/l10n.dart';
+
 class ProjectPage extends StatefulWidget {
   final ValueChanged<int>? onChange;
   final GestureTapCallback? onSetting;
@@ -34,14 +36,15 @@ class _ProjectPageState extends State<ProjectPage> with AutomaticKeepAliveClient
     showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(title: const Text('温馨提醒'), content: const Text('确定删除此项计划吗？'), actions: [
-            OutlinedButton(onPressed: Navigator.of(context).pop, child: const Text('取消')),
+          return AlertDialog(title:  Text(S.of(context).dialog_title), content: Text(S.of(context).delete_project_content), actions: [
+            OutlinedButton(onPressed: Navigator.of(context).pop, child: Text(S.of(context).cancel)),
             ElevatedButton(
                 onPressed: () async {
+                  Navigator.of(context).pop();
                   await IsarUtil().deleteProject(entity);
                   _loadProjectData();
                 },
-                child: const Text('确定')),
+                child: Text(S.of(context).confirm)),
           ]);
         });
   }

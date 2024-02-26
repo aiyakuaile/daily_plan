@@ -52,9 +52,6 @@ class _MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
-    final bgImgUrl = context.watch<ThemeProvider>().customBackgroundImagePath;
-
     return Scaffold(
       body: RawKeyboardListener(
         focusNode: _focusNode,
@@ -94,14 +91,20 @@ class _MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin 
         },
         child: Consumer<ThemeProvider>(
           builder: (BuildContext context,value,Widget? child) {
+
+            late DecorationImage decorationImage;
+            final imgPath = value.customBackgroundImagePath;
+            if(imgPath == null){
+              decorationImage = const DecorationImage(image: AssetImage('./images/ray_hennessy.jpg'), fit: BoxFit.cover);
+            }else if(imgPath.startsWith('http')){
+              decorationImage = DecorationImage(image: NetworkImage(imgPath), fit: BoxFit.cover);
+            }else{
+              decorationImage = DecorationImage(image: FileImage(File(imgPath)), fit: BoxFit.cover);
+            }
             return Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                image: value.customBackgroundImagePath == ''
-                    ? null
-                    : value.customBackgroundImagePath.startsWith('http')
-                        ? DecorationImage(image: NetworkImage(value.customBackgroundImagePath), fit: BoxFit.cover)
-                        : DecorationImage(image: FileImage(File(value.customBackgroundImagePath)), fit: BoxFit.cover),
+                image: decorationImage
               ),
               child: child,
             );
