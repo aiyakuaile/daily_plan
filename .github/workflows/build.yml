@@ -91,16 +91,20 @@ jobs:
         run: flutter config --enable-macos-desktop
       - name: Build artifacts
         run: flutter build macos --release
+      - name: create app directory
+        run: mkdir -p build/macos/Build/Products/Release/App
+      - name: copy app file to new directory
+        run: cp -a build/macos/Build/Products/Release/daily_plan.app build/macos/Build/Products/Release/App/daily_plan.app
       - name: Archive Release
         uses: thedoctor0/zip-release@master
         with:
           type: 'zip'
           filename: DailyPlan-${{github.ref_name}}-macos.zip
-          directory: build/macos/Build/Products/Release/daily_plan.app
+          directory: build/macos/Build/Products/Release/App
       - name: macOS Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: build/macos/Build/Products/Release/DailyPlan-${{github.ref_name}}-macos.zip
+          files: build/macos/Build/Products/Release/App/DailyPlan-${{github.ref_name}}-macos.zip
