@@ -10,6 +10,8 @@
 
 在项目页面可以直接鼠标点击想要打开的项目，快速跳转到对应的计划页面。
 
+简体中文 | [English](./README.md)
+
 ### 预览
 ![](https://raw.githubusercontent.com/aiyakuaile/daily_plan/main/video.gif)
 

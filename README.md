@@ -9,6 +9,8 @@ On the plan page, use the left and right arrow keys or AD keys to switch between
 
 Click on a project in the project page to quickly jump to its corresponding plan page.
 
+English | [简体中文](./README.zh.md)
+
 ### Preview
 
 ![](https://raw.githubusercontent.com/aiyakuaile/daily_plan/main/video.gif)
