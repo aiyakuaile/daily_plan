@@ -10,38 +10,91 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.13.9'
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.13.9'
 
-    - name: Install dependencies
-      run: flutter pub get
+      - name: Install dependencies
+        run: flutter pub get
 
-    - name: Build for Windows
-      run: flutter build windows
+      - name: Build for Linux
+        run: flutter build linux
 
-    - name: Build for macOS
-      run: flutter build macos
+      - name: Create release
+        run: |
+          TAG_NAME=$(git describe --tags --abbrev=0)
+          RELEASE_DIR="release/$TAG_NAME/linux"
+          mkdir -p $RELEASE_DIR
+          cp -r build/linux/daily_plan $RELEASE_DIR/daily_plan_$TAG_NAME
 
-    - name: Build for Linux
-      run: flutter build linux
+      - name: Upload release
+        uses: actions/upload-artifact@v2
+        with:
+          name: release
+          path: release
 
-    - name: Create release
-      run: |
-        TAG_NAME=$(git describe --tags --abbrev=0)
-        RELEASE_DIR="release/$TAG_NAME"
-        mkdir -p $RELEASE_DIR
-        cp build/windows/your_flutter_app.exe $RELEASE_DIR/your_flutter_app_$TAG_NAME.exe
-        cp build/macos/your_flutter_app.app $RELEASE_DIR/your_flutter_app_$TAG_NAME.app
-        cp -r build/linux/your_flutter_app $RELEASE_DIR/your_flutter_app_$TAG_NAME
+  build_windows:
+    runs-on: windows-latest
 
-    - name: Upload release
-      uses: actions/upload-artifact@v2
-      with:
-        name: release
-        path: release
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.13.9'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build for Windows
+        run: flutter build windows
+
+      - name: Create release
+        run: |
+          TAG_NAME=$(git describe --tags --abbrev=0)
+          RELEASE_DIR="release/$TAG_NAME/windows"
+          mkdir -p $RELEASE_DIR
+          cp build/windows/daily_plan.exe $RELEASE_DIR/daily_plan_$TAG_NAME.exe
+
+      - name: Upload release
+        uses: actions/upload-artifact@v2
+        with:
+          name: release
+          path: release
+
+  build_macos:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.13.9'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build for macOS
+        run: flutter build macos
+
+      - name: Create release
+        run: |
+          TAG_NAME=$(git describe --tags --abbrev=0)
+          RELEASE_DIR="release/$TAG_NAME/macos"
+          mkdir -p $RELEASE_DIR
+          cp -r build/macos/daily_plan.app $RELEASE_DIR/daily_plan_$TAG_NAME.app
+
+      - name: Upload release
+        uses: actions/upload-artifact@v2
+        with:
+          name: release
+          path: release
