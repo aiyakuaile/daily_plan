@@ -59,7 +59,7 @@ jobs:
 
       - name: Create release
         run: |
-          TAG_NAME=$(git describe --tags --abbrev=0)
+          TAG_NAME=$($env:GITHUB_REF -replace 'refs/tags/','')
           RELEASE_DIR="release/$TAG_NAME/windows"
           mkdir -p $RELEASE_DIR
           cp build/windows/runner/release/daily_plan.exe $RELEASE_DIR/daily_plan_win_$TAG_NAME.exe
