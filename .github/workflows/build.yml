@@ -1,50 +1,102 @@
-  Build and Release daily_plan Desktop
+name: Flutter CI
 
-  on:
-    push:
-      tags:
-        - 'v*'
+on:
+  push:
+    tags:
+      - 'v*'
 
-  jobs:
-    build-and-release:
-      runs-on: ${{ matrix.os }}
-      strategy:
-        matrix:
-          os: [windows-latest, macos-latest, ubuntu-latest]
-          target: [windows, macos, linux]
+jobs:
+  build-and-release-linux:
+    runs-on: ubuntu-latest
 
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v2
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+          flutter-version: '2.10.0'
+      - name: Install dependencies
+        run: sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
+      - name: Install project dependencies
+        run: flutter pub get
+      - name: Generate intermediates
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+      - name: Enable linux build
+        run: flutter config --enable-linux-desktop
+      - name: Build artifacts
+        run: flutter build linux --release
+      - name: Archive Release
+        uses: thedoctor0/zip-release@master
+        with:
+          type: 'zip'
+          filename: DailyPlan-${{github.ref_name}}-linux.zip
+          directory: build/linux/x64/release/bundle
+      - name: Linux Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: build/linux/x64/release/bundle/DailyPlan-${{github.ref_name}}-linux.zip
 
-        - name: Set up Flutter
-          uses: subosito/flutter-action@v2
-          with:
-            flutter-version: 'stable'
+  build-and-release-windows:
+    runs-on: windows-latest
 
-        - name: Get Flutter dependencies
-          run: flutter pub get
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+          flutter-version: '2.10.0'
+      - name: Install project dependencies
+        run: flutter pub get
+      - name: Generate intermediates
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+      - name: Enable windows build
+        run: flutter config --enable-windows-desktop
+      - name: Build artifacts
+        run: flutter build windows --release
+      - name: Archive Release
+        uses: thedoctor0/zip-release@master
+        with:
+          type: 'zip'
+          filename: DailyPlan-${{github.ref_name}}-windows.zip
+          directory: build/windows/runner/Release
+      - name: Windows Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: build/windows/runner/Release/DailyPlan-${{github.ref_name}}-windows.zip
 
-        - name: Build daily_plan release
-          run: flutter build ${{ matrix.target }} --release
+  build-and-release-macos:
+    runs-on: macos-latest
 
-        - name: Create Release
-          id: create_release
-          uses: actions/create-release@v1
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          with:
-            tag_name: ${{ github.ref }}
-            release_name: daily_plan Release ${{ github.ref }}
-            draft: false
-            prerelease: false
-
-        - name: Upload release asset
-          uses: actions/upload-release-asset@v1
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          with:
-            upload_url: ${{ steps.create_release.outputs.upload_url }}
-            asset_path: ./build/${{ matrix.target }}/release/daily_plan${{ matrix.target == 'windows' ? '.exe' : '' }}
-            asset_name: daily_plan-${{ matrix.target }}-${{ github.ref_name }}${{ matrix.target == 'windows' ? '.exe' : '' }}
-            asset_content_type: application/octet-stream
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+          flutter-version: '2.10.0'
+      - name: Install project dependencies
+        run: flutter pub get
+      - name: Generate intermediates
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+      - name: Enable macOS build
+        run: flutter config --enable-macos-desktop
+      - name: Build artifacts
+        run: flutter build macos --release
+      - name: Archive Release
+        uses: thedoctor0/zip-release@master
+        with:
+          type: 'zip'
+          filename: DailyPlan-${{github.ref_name}}-macos.zip
+          directory: build/macos/Build/Products/Release
+      - name: macOS Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: build/macos/Build/Products/Release/DailyPlan-${{github.ref_name}}-macos.zip
