@@ -27,11 +27,11 @@ jobs:
       - run: flutter build linux
 
       - run: |
-        echo CACHE-PATH=${{ steps.flutter-action.outputs.CACHE-PATH }}
-        echo CACHE-KEY=${{ steps.flutter-action.outputs.CACHE-KEY }}
-        echo CHANNEL=${{ steps.flutter-action.outputs.CHANNEL }}
-        echo VERSION=${{ steps.flutter-action.outputs.VERSION }}
-        echo ARCHITECTURE=${{ steps.flutter-action.outputs.ARCHITECTURE }}
+          echo CACHE-PATH=${{ steps.flutter-action.outputs.CACHE-PATH }}
+          echo CACHE-KEY=${{ steps.flutter-action.outputs.CACHE-KEY }}
+          echo CHANNEL=${{ steps.flutter-action.outputs.CHANNEL }}
+          echo VERSION=${{ steps.flutter-action.outputs.VERSION }}
+          echo ARCHITECTURE=${{ steps.flutter-action.outputs.ARCHITECTURE }}
         shell: bash
 
       - name: Create release
@@ -66,11 +66,11 @@ jobs:
         run: flutter build windows
 
       - run: |
-        echo CACHE-PATH=${{ steps.flutter-action.outputs.CACHE-PATH }}
-        echo CACHE-KEY=${{ steps.flutter-action.outputs.CACHE-KEY }}
-        echo CHANNEL=${{ steps.flutter-action.outputs.CHANNEL }}
-        echo VERSION=${{ steps.flutter-action.outputs.VERSION }}
-        echo ARCHITECTURE=${{ steps.flutter-action.outputs.ARCHITECTURE }}
+          echo CACHE-PATH=${{ steps.flutter-action.outputs.CACHE-PATH }}
+          echo CACHE-KEY=${{ steps.flutter-action.outputs.CACHE-KEY }}
+          echo CHANNEL=${{ steps.flutter-action.outputs.CHANNEL }}
+          echo VERSION=${{ steps.flutter-action.outputs.VERSION }}
+          echo ARCHITECTURE=${{ steps.flutter-action.outputs.ARCHITECTURE }}
         shell: bash
 
       - name: Create release
@@ -105,11 +105,11 @@ jobs:
         run: flutter build macos
 
       - run: |
-        echo CACHE-PATH=${{ steps.flutter-action.outputs.CACHE-PATH }}
-        echo CACHE-KEY=${{ steps.flutter-action.outputs.CACHE-KEY }}
-        echo CHANNEL=${{ steps.flutter-action.outputs.CHANNEL }}
-        echo VERSION=${{ steps.flutter-action.outputs.VERSION }}
-        echo ARCHITECTURE=${{ steps.flutter-action.outputs.ARCHITECTURE }}
+          echo CACHE-PATH=${{ steps.flutter-action.outputs.CACHE-PATH }}
+          echo CACHE-KEY=${{ steps.flutter-action.outputs.CACHE-KEY }}
+          echo CHANNEL=${{ steps.flutter-action.outputs.CHANNEL }}
+          echo VERSION=${{ steps.flutter-action.outputs.VERSION }}
+          echo ARCHITECTURE=${{ steps.flutter-action.outputs.ARCHITECTURE }}
         shell: bash
 
       - name: Create release
