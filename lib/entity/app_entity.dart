@@ -11,6 +11,9 @@ class AppEntity {
   AppEntity.fromJson(dynamic json) {
     id = json['id'];
     tagName = json['tag_name'];
+    if(tagName != null && tagName!.isNotEmpty){
+      tagName = tagName!.replaceAll('v', '');
+    }
     name = json['name'];
     if(ObjectUtil.isNotEmpty(json['published_at'])){
       publishedAt = DateUtil.formatDateStr(json['published_at'],format: DateFormats.full);

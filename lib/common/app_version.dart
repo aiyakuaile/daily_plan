@@ -17,7 +17,7 @@ class AppVersion {
       final appUpdateInfo = await HttpNet.getAppLatestMsg();
       if (appUpdateInfo == null) return false;
       appInfo = appUpdateInfo;
-      latestVersion = appInfo!.tagName ?? appInfo!.name!;
+      latestVersion = appInfo!.tagName!;
       debugPrint('currentVersion:::$currentVersion----latestVersion::::$latestVersion');
       isUpdateRequired = currentVersion.compareTo(latestVersion) < 0;
       debugPrint('UpdateRequired:::$isUpdateRequired');

@@ -20,8 +20,9 @@ void main() async {
   if(lang != null && lang.isNotEmpty) {
     CurrentLocaleProvider.langCode = lang;
   }
-  windowManager.waitUntilReadyToShow(
-      const WindowOptions(minimumSize: Size(1000, 800), center: true, backgroundColor: Colors.white, title: Constant.appName), () async {
+  await windowManager.waitUntilReadyToShow(
+      const WindowOptions(size: Size(1000, 800),minimumSize: Size(1000, 800), center: true, backgroundColor: Colors.white, title:
+      Constant.appName), () async {
     await windowManager.show();
     await windowManager.focus();
   });
