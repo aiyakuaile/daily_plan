@@ -94,7 +94,7 @@ jobs:
       - name: create app directory
         run: mkdir -p build/macos/Build/Products/Release/App
       - name: copy app file to new directory
-        run: cp -a build/macos/Build/Products/Release/daily_plan.app build/macos/Build/Products/Release/App/daily_plan.app
+        run: cp -a build/macos/Build/Products/Release/*.app build/macos/Build/Products/Release/App
       - name: Archive Release
         uses: thedoctor0/zip-release@master
         with:
