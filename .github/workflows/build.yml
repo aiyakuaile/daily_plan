@@ -7,16 +7,17 @@ on:
 
 jobs:
   build-and-release-linux:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: subosito/flutter-action@v1
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '2.10.0'
+          architecture: x64
+          flutter-version: '3.13.9'
       - name: Install dependencies
-        run: sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
+        run: sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-0 libgtk-3-dev libblkid1 liblzma5
       - name: Install project dependencies
         run: flutter pub get
       - name: Generate intermediates
@@ -43,11 +44,12 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: subosito/flutter-action@v1
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '2.10.0'
+          architecture: x64
+          flutter-version: '3.13.9'
       - name: Install project dependencies
         run: flutter pub get
       - name: Generate intermediates
@@ -74,11 +76,12 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: subosito/flutter-action@v1
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          flutter-version: '2.10.0'
+          architecture: x64
+          flutter-version: '3.13.9'
       - name: Install project dependencies
         run: flutter pub get
       - name: Generate intermediates
