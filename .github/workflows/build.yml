@@ -28,7 +28,7 @@ jobs:
 
       - name: Create release
         run: |
-          TAG_NAME=$(git describe --tags --abbrev=0)
+          TAG_NAME=${{ github.ref }}
           RELEASE_DIR="release/$TAG_NAME/linux"
           mkdir -p $RELEASE_DIR
           cp -r build/linux/x64/release/bundle/daily_plan $RELEASE_DIR/daily_plan_linux_$TAG_NAME
@@ -59,11 +59,10 @@ jobs:
 
       - name: Create release
         run: |
-          TAG_NAME=$($env:GITHUB_REF -replace 'refs/tags/','')
+          TAG_NAME=${{ github.ref }}
           RELEASE_DIR="release/$TAG_NAME/windows"
           mkdir -p $RELEASE_DIR
-          cp -r build/windows/runner/Release/daily_plan.exe $RELEASE_DIR/daily_plan_win_$TAG_NAME
-          .exe
+          cp build/windows/runner/Release/daily_plan.exe $RELEASE_DIR/daily_plan_win_$TAG_NAME.exe
 
       - name: Upload release
         uses: actions/upload-artifact@v2
@@ -91,7 +90,7 @@ jobs:
 
       - name: Create release
         run: |
-          TAG_NAME=$(git describe --tags --abbrev=0)
+          TAG_NAME=${{ github.ref }}
           RELEASE_DIR="release/$TAG_NAME/macos"
           mkdir -p $RELEASE_DIR
           cp -r build/macos/Build/Products/Release/daily_plan.app 
